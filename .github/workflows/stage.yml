@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  test-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,13 +30,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
 
-    - name: Install Ganache CLI
-      run: yarn global add ganache-cli
+    - name: Install Ganache and Truffle CLI
+      run: yarn global add truffle ganache-cli
     
     - name: Start Ganache CLI
       run: ganache-cli &
 
-    - name: Install dependencies
+    - name: Install Node dependencies
       run: yarn
 
     - name: Update packages to latest version
@@ -50,38 +50,6 @@ jobs:
 
     - name: Run tests
       run: yarn test
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Use Node.js 15.x
-      uses: actions/setup-node@v2
-      with:
-        node-version: 15.x
-
-    - name: Load cache
-      uses: actions/cache@v2
-      with:
-        path: ~/.yarn
-        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-
-    - name: Install Ganache CLI
-      run: yarn global add truffle ganache-cli
-    
-    - name: Start Ganache CLI
-      run: ganache-cli &
-
-    - name: Install dependencies
-      run: yarn
-
-    - name: Update packages to latest version
-      run: yarn upgrade
     
     - name: Deploy to BSC Test Network
       run: truffle migrate --network bscTestnet --reset
