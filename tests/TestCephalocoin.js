@@ -31,11 +31,11 @@ contract('Cephalocoin', () => {
   });
 
   it('Symbol should be a valid one', async () => {
-    expect(await token.callStatic.symbol()).to.be.oneOf(['CEPH', 'SHPSFTR', 'AMOEBA', 'MANY', 'MULTI', 'VARI', 'ANY']);
+    expect(await token.callStatic.symbol()).to.be.oneOf(['CEPH', 'SHPSFTR', 'TFORMR', 'AMOEBA', 'MANY', 'MULTI', 'VARI', 'ANY', 'PLENTY', 'OMNI']);
   });
 
   it('Name should be an allowed one', async () => {
-    expect(await token.callStatic.name()).to.be.oneOf(['Cephalocoin', 'Shapeshifter', 'Amoeba', 'Manycoin', 'Multicoin', 'Varicoin', 'Anycoin']); 
+    expect(await token.callStatic.name()).to.be.oneOf(['Cephalocoin', 'Shapeshifter', 'Transformer', 'Amoeba', 'Manycoin', 'Multicoin', 'Varicoin', 'Anycoin', 'Plentycoin', 'Omnicoin']); 
   });
 
   it('Transfer should revert on sending to null address', async () => {

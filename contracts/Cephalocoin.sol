@@ -22,15 +22,29 @@ contract Cephalocoin is Context, IBEP20, Ownable {
         _decimals = 18;
         _totalSupply = supply;
         _balances[msg.sender] = _totalSupply;
-        _symbols = ["CEPH", "SHPSFTR", "AMOEBA", "MANY", "MULTI", "VARI", "ANY"];
+        _symbols = [
+            "CEPH",
+            "SHPSFTR",
+            "TFORMR",
+            "AMOEBA",
+            "MANY",
+            "MULTI",
+            "VARI",
+            "ANY",
+            "PLENTY",
+            "OMNI"
+        ];
         _names = [
             "Cephalocoin",
             "Shapeshifter",
+            "Transformer",
             "Amoeba",
             "Manycoin",
             "Multicoin",
             "Varicoin",
-            "Anycoin"
+            "Anycoin",
+            "Plentycoin",
+            "Omnicoin"
         ];
 
         emit Transfer(address(0), msg.sender, _totalSupply);
