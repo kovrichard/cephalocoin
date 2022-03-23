@@ -1,0 +1,57 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ production ]
+  pull_request:
+    branches: [ production ]
+
+jobs:
+  test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Use Node.js 15.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 15.x
+
+    - name: Load cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.yarn
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install Ganache and Truffle CLI
+      run: yarn global add truffle ganache
+    
+    - name: Start Ganache CLI
+      run: ganache &
+
+    - name: Install Node dependencies
+      run: yarn
+
+    - name: Update packages to latest version
+      run: yarn upgrade
+    
+    - name: Check Solidity style
+      run: yarn run check
+    
+    - name: Check JS style
+      run: yarn run checkjs
+
+    - name: Run tests
+      run: yarn test
+    
+    - name: Deploy to BSC Main Network
+      env:
+        MNEMONIC: ${{ secrets.MNEMONIC }}
+      run: truffle migrate --network bscMainnet --reset
