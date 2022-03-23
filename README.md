@@ -1,5 +1,11 @@
 # cephalocoin
 
+# 1. Description
+
+Cephalocoin is a project to show how easy it is to create a cryptocurrency that complies with popular standards but does something completely unexpected.
+
+Cephalocoin will look different almost each time you look at it, just like most of the cephalopods do, hence the name.
+
 ## 2. Development
 ### 2.1 Requirements
 
